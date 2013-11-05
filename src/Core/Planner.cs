@@ -1,21 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.Planing.PrioritizedCollections;
-using Core.PlaningActions;
-using Core.States;
+using Core.Graph;
+using Core.Planning;
+using Core.PrioritizedCollections;
 
-namespace Core.Planing
+namespace Core
 {
     public static class Planner
     {
-        public static IEnumerable<IState<T>> MakePlan<T>(IState<T> initialState, IState<T> goalState, IEnumerable<PlanningAction<T>> planningActions, Method method)
+        public static IEnumerable<State<T>> MakePlan<T>(State<T> initialState, State<T> goalState, IEnumerable<PlanningAction<T>> planningActions, Method method)
         {
-            var visited = new HashSet<IState<T>>();
-            var states = UnvisitedStates<Path<IState<T>>>(method);
-            states.Add(0, new Path<IState<T>>(initialState));
+            var visited = new HashSet<State<T>>();
+            var states = UnvisitedStates<Path<State<T>>>(method);
+            states.Add(0, new Path<State<T>>(initialState));
             while (states.HasElements)
             {
-                Path<IState<T>> path = states.Get();
+                Path<State<T>> path = states.Get();
                 bool already = visited.Contains(path.Node);
                 if (already) continue;
                 if (path.Node.Equals(goalState)) return path;
@@ -28,8 +28,8 @@ namespace Core.Planing
 
                 foreach (var state in posibleStates)
                 {
-                    var newPlan = path.Add(state, state.Distance(path.Node));
-                    states.Add(newPlan.PathCost + newPlan.Node.Distance(goalState), newPlan);
+                    var newPlan = path.AddChild(state, state.Distance(path.Node));
+                    states.Add(newPlan.Cost + newPlan.Node.Distance(goalState), newPlan);
                 }
             }
             return null;

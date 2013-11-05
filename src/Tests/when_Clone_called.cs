@@ -1,4 +1,4 @@
-﻿using Core.PlaningActions;
+﻿using Core.Planning;
 using Machine.Specifications;
 
 namespace Tests

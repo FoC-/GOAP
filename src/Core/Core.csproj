@@ -39,16 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="States\IState.cs" />
-    <Compile Include="PlaningActions\PlanningAction.cs" />
-    <Compile Include="States\State.cs" />
+    <Compile Include="Graph\Path.cs" />
+    <Compile Include="Planning\PlanningAction.cs" />
+    <Compile Include="Planning\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Planner.cs" />
-    <Compile Include="Planing\Path.cs" />
-    <Compile Include="Planing\PrioritizedCollections\IPrioritized.cs" />
-    <Compile Include="Planing\Method.cs" />
-    <Compile Include="Planing\PrioritizedCollections\PrioritizedQueue.cs" />
-    <Compile Include="Planing\PrioritizedCollections\PrioritizedStack.cs" />
+    <Compile Include="PrioritizedCollections\IPrioritized.cs" />
+    <Compile Include="Planning\Method.cs" />
+    <Compile Include="PrioritizedCollections\PrioritizedQueue.cs" />
+    <Compile Include="PrioritizedCollections\PrioritizedStack.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

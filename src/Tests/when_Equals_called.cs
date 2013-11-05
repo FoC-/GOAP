@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.States;
+using Core.Planning;
 using Machine.Specifications;
 
 namespace Tests

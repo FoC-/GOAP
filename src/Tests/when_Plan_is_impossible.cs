@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Core.Planing;
-using Core.PlaningActions;
-using Core.States;
+using Core;
+using Core.Graph;
+using Core.Planning;
 using Machine.Specifications;
 
 namespace Tests
@@ -31,6 +31,6 @@ namespace Tests
         private static State<string> initialState;
         private static State<string> goalState;
         private static List<PlanningAction<string>> planningActions;
-        private static IEnumerable<IState<string>> plan;
+        private static IEnumerable<State<string>> plan;
     }
 }
