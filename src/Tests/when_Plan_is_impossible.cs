@@ -10,9 +10,9 @@ namespace Tests
     {
         Establish context = () =>
         {
-            planningActions = new List<PlanningAction<State>>
+            planningActions = new List<PlanningAction>
             {
-                new PlanningAction<State>(
+                new PlanningAction(
                     name: "swap 1 with 2",
                     validator: x => x.Get("1").Count > 1,
                     executor: x => {
@@ -23,7 +23,7 @@ namespace Tests
                                 parameter2.Count += 1;
                                 x.Save(parameter2);
                     }),
-                new PlanningAction<State>(
+                new PlanningAction(
                     name:"swap 2 with 1",
                     validator: x => x.Get("2") != null && x.Get("1").Count > 1,
                     executor:x =>{
@@ -51,7 +51,7 @@ namespace Tests
 
         private static State initialState;
         private static State goalState;
-        private static List<PlanningAction<State>> planningActions;
+        private static List<PlanningAction> planningActions;
         private static IEnumerable<State> plan;
     }
 }

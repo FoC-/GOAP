@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Planning
 {
-    public class State : IPlaningState
+    public class State : ICloneable, IEquatable<State>
     {
         private readonly Dictionary<string, Parameter> parameters = new Dictionary<string, Parameter>();
 
@@ -36,7 +37,7 @@ namespace Core.Planning
             parameters.Remove(id);
         }
 
-        public double Distance(IPlaningState destination)
+        public double Distance(State destination)
         {
             var score = 0.0;
             var requiredParameters = destination.GetAll().Where(x => x.IsRequiredForGoal);
@@ -66,7 +67,7 @@ namespace Core.Planning
             return newState;
         }
 
-        public bool Equals(IPlaningState other)
+        public bool Equals(State other)
         {
             var otherParameters = other.GetAll().Where(x => x.IsRequiredForGoal);
             if (!otherParameters.Any()) return false;

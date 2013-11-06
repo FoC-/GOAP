@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Graph\Path.cs" />
-    <Compile Include="Planning\IPlaningState.cs" />
     <Compile Include="Planning\PlanningAction.cs" />
     <Compile Include="Planning\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

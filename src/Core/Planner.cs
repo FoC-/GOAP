@@ -8,7 +8,7 @@ namespace Core
 {
     public static class Planner
     {
-        public static IEnumerable<State> MakePlan(State initialState, State goalState, IEnumerable<PlanningAction<State>> planningActions, Method method)
+        public static IEnumerable<State> MakePlan(State initialState, State goalState, IEnumerable<PlanningAction> planningActions, Method method)
         {
             var visitedStates = new HashSet<State>();
             var unvisitedStates = UnvisitedStates<Path<State>>(method);
