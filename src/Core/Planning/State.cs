@@ -4,7 +4,8 @@ using System.Linq;
 
 namespace Core.Planning
 {
-    public class State : ICloneable, IEquatable<State>
+    [Serializable]
+    public class State : IEquatable<State>
     {
         private readonly Dictionary<string, Parameter> parameters = new Dictionary<string, Parameter>();
 
@@ -57,19 +58,9 @@ namespace Core.Planning
             return score / destination.GetAll().Count(x => x.IsRequiredForGoal);
         }
 
-        public object Clone()
-        {
-            var newState = new State();
-            foreach (var parameter in GetAll())
-            {
-                newState.Save(parameter);
-            }
-            return newState;
-        }
-
         public bool Equals(State other)
         {
-            var otherParameters = other.GetAll().Where(x => x.IsRequiredForGoal);
+            var otherParameters = other.GetAll();
             if (!otherParameters.Any()) return false;
             foreach (var otherParameter in otherParameters)
             {
@@ -99,15 +90,5 @@ namespace Core.Planning
 
             return iHash;
         }
-    }
-
-    public class Parameter
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public bool IsRequiredForGoal { get; set; }
-        //Todo: Make it enum less more equal
-        public bool IsRequiredExectCount { get; set; }
-        public int Count { get; set; }
     }
 }

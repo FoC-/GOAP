@@ -39,8 +39,8 @@ namespace Tests
             initialState.Save(new Parameter { Id = "1", Count = 3, IsRequiredExectCount = true, IsRequiredForGoal = true });
             initialState.Save(new Parameter { Id = "2", Count = 6, IsRequiredExectCount = true, IsRequiredForGoal = true });
             goalState = new State();
-            initialState.Save(new Parameter { Id = "1", Count = 5, IsRequiredExectCount = true, IsRequiredForGoal = true });
-            initialState.Save(new Parameter { Id = "2", Count = 4, IsRequiredExectCount = true, IsRequiredForGoal = true });
+            goalState.Save(new Parameter { Id = "1", Count = 5, IsRequiredExectCount = true, IsRequiredForGoal = true });
+            goalState.Save(new Parameter { Id = "2", Count = 4, IsRequiredExectCount = true, IsRequiredForGoal = true });
         };
 
         Because of = () =>

@@ -17,7 +17,7 @@ namespace Core
             {
                 var path = unvisitedStates.Get();
                 if (visitedStates.Contains(path.Node)) continue;
-                if (path.Node.Equals(goalState)) return path;
+                if (path.Node.Equals(goalState)) return path.Reverse();
 
                 visitedStates.Add(path.Node);
 

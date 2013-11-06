@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Extensions;
 
 namespace Core.Planning
 {
@@ -24,7 +25,7 @@ namespace Core.Planning
 
         public State Execute(State state)
         {
-            var newState = state.Clone() as State;
+            var newState = state.DeepClone();
             newState.CreatedBy = Name;
             do
             {
