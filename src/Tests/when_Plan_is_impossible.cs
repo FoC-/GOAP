@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core;
-using Core.Graph;
 using Core.Planning;
 using Machine.Specifications;
 
@@ -10,27 +9,39 @@ namespace Tests
     class when_Plan_is_impossible
     {
         Establish context = () =>
-        {
-            planningActions = new List<PlanningAction<string>>
             {
-                new PlanningAction<string>("swap 1 with 2").Requires("1", 1).Consumes("1", 1).Produces("2", 1),
-                new PlanningAction<string>("swap 2 with 1").Requires("2", 1).Consumes("2", 1).Produces("1", 1)
+                planningActions = new List<PlanningAction<State<string>>>
+                {
+                    new PlanningAction<State<string>>(
+                        name: "swap 1 with 2",
+                        validator: x => x.Count("1") > 1,
+                        executor: x => {
+                            x.Remove(new Dictionary<string, int>{ {"1" , 1 } });
+                            x.Add(new Dictionary<string, int>{ { "2", 1 } });
+                        }),
+                    new PlanningAction<State<string>>(
+                        name:"swap 2 with 1",
+                        validator:x => x.Count("2") > 1,
+                        executor:x =>{
+                            x.Remove(new Dictionary<string, int>{ { "2" , 1 } });
+                            x.Add(new Dictionary<string, int>{ { "1", 1 } });
+                        })
+                };
+                initialState = new State<string>();
+                initialState.Add(new Dictionary<string, int> { { "1", 4 }, { "2", 5 } });
+                goalState = new State<string>();
+                goalState.Add(new Dictionary<string, int> { { "1", 5 }, { "2", 5 } });
             };
-            initialState = new State<string>();
-            initialState.Add(new Dictionary<string, int> { { "1", 4 }, { "2", 5 } });
-            goalState = new State<string>();
-            goalState.Add(new Dictionary<string, int> { { "1", 5 }, { "2", 5 } });
-        };
 
         Because of = () =>
-            plan = Planner.MakePlan(initialState, goalState, planningActions, Method.DepthFirst);
+            plan = Planner.MakePlan<State<string>, string>(initialState, goalState, planningActions, Method.DepthFirst);
 
         It should_return_null = () =>
             plan.ShouldBeNull();
 
         private static State<string> initialState;
         private static State<string> goalState;
-        private static List<PlanningAction<string>> planningActions;
+        private static List<PlanningAction<State<string>>> planningActions;
         private static IEnumerable<State<string>> plan;
     }
 }

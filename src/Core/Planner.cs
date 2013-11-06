@@ -8,28 +8,27 @@ namespace Core
 {
     public static class Planner
     {
-        public static IEnumerable<State<T>> MakePlan<T>(State<T> initialState, State<T> goalState, IEnumerable<PlanningAction<T>> planningActions, Method method)
+        public static IEnumerable<S> MakePlan<S, T>(S initialState, S goalState, IEnumerable<PlanningAction<S>> planningActions, Method method) where S : State<T>
         {
-            var visited = new HashSet<State<T>>();
-            var states = UnvisitedStates<Path<State<T>>>(method);
-            states.Add(0, new Path<State<T>>(initialState));
-            while (states.HasElements)
+            var visitedStates = new HashSet<S>();
+            var unvisitedStates = UnvisitedStates<Path<S>>(method);
+            unvisitedStates.Add(0, new Path<S>(initialState));
+            while (unvisitedStates.HasElements)
             {
-                Path<State<T>> path = states.Get();
-                bool already = visited.Contains(path.Node);
-                if (already) continue;
+                var path = unvisitedStates.Get();
+                if (visitedStates.Contains(path.Node)) continue;
                 if (path.Node.Equals(goalState)) return path;
 
-                visited.Add(path.Node);
+                visitedStates.Add(path.Node);
 
-                var actions = planningActions.Where(a => a.CanExecute(path.Node));
+                var plans = planningActions
+                    .Where(action => action.CanExecute(path.Node))
+                    .Select(action => action.Execute(path.Node))
+                    .Select(state => path.AddChild(state, state.Distance(path.Node)));
 
-                var posibleStates = actions.Select(a => a.Migrate(path.Node));
-
-                foreach (var state in posibleStates)
+                foreach (var plan in plans)
                 {
-                    var newPlan = path.AddChild(state, state.Distance(path.Node));
-                    states.Add(newPlan.Cost + newPlan.Node.Distance(goalState), newPlan);
+                    unvisitedStates.Add(plan.Cost + plan.Node.Distance(goalState), plan);
                 }
             }
             return null;

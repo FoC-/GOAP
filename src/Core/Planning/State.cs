@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace Core.Planning
 {
-    public class State<T> : ICloneable, IEquatable<State<T>>
+    public class State<T> : IPlaningState, IEquatable<State<T>>
     {
         private readonly Dictionary<T, int> parameters = new Dictionary<T, int>();
-        private PlanningAction<T> createdBy;
+        public string CreatedBy { get; set; }
 
         public void Add(Dictionary<T, int> items)
         {
@@ -57,11 +57,6 @@ namespace Core.Planning
             return score / parameters.Count;
         }
 
-        public void CreatedBy(PlanningAction<T> planningAction)
-        {
-            createdBy = planningAction;
-        }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -74,6 +69,7 @@ namespace Core.Planning
             if (this.ParametersCount() != other.ParametersCount()) return false;
             return parameters.All(p => other.Count(p.Key) == p.Value);
         }
+
         public override int GetHashCode()
         {
             int iHash = 127;

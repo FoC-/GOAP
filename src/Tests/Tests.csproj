@@ -31,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Machine.Specifications">
-      <HintPath>..\packages\Machine.Specifications.0.5.11\lib\net40\Machine.Specifications.dll</HintPath>
+      <HintPath>..\packages\Machine.Specifications.0.5.16\lib\net40\Machine.Specifications.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications.Clr4">
-      <HintPath>..\packages\Machine.Specifications.0.5.11\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
+      <HintPath>..\packages\Machine.Specifications.0.5.16\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="when_Plan_is_impossible.cs" />
     <Compile Include="when_Plan_is_possible.cs" />
-    <Compile Include="when_Clone_called.cs" />
     <Compile Include="when_Equals_called.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
