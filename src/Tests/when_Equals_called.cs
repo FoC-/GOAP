@@ -4,16 +4,20 @@ using Machine.Specifications;
 
 namespace Tests
 {
-    [Subject(typeof(State<string>))]
+    [Subject(typeof(State))]
     public class when_Equals_called
     {
         Establish context = () =>
         {
-            source = new State<string>();
-            source.Add(new Dictionary<string, int> { { "param1", 10 }, { "param2", 20 }, { "param3", 30 } });
+            source = new State();
+            source.Save(new Parameter { Id = "param1", Count = 10, IsRequiredExectCount = true, IsRequiredForGoal = true });
+            source.Save(new Parameter { Id = "param2", Count = 20, IsRequiredExectCount = true, IsRequiredForGoal = true });
+            source.Save(new Parameter { Id = "param3", Count = 30, IsRequiredExectCount = true, IsRequiredForGoal = true });
 
-            destination = new State<string>();
-            destination.Add(new Dictionary<string, int> { { "param1", 10 }, { "param2", 20 }, { "param3", 30 } });
+            destination = new State();
+            destination.Save(new Parameter { Id = "param3", Count = 30, IsRequiredExectCount = true, IsRequiredForGoal = true });
+            destination.Save(new Parameter { Id = "param2", Count = 20, IsRequiredExectCount = true, IsRequiredForGoal = true });
+            destination.Save(new Parameter { Id = "param1", Count = 10, IsRequiredExectCount = true, IsRequiredForGoal = true });
         };
         Because of = () =>
             result = source.Equals(destination);
@@ -22,7 +26,7 @@ namespace Tests
             result.ShouldBeTrue();
 
         private static bool result;
-        private static State<string> source;
-        private static State<string> destination;
+        private static State source;
+        private static State destination;
     }
 }

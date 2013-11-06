@@ -10,38 +10,48 @@ namespace Tests
     {
         Establish context = () =>
         {
-            planningActions = new List<PlanningAction<State<string>>>
+            planningActions = new List<PlanningAction<State>>
             {
-                new PlanningAction<State<string>>(
+                new PlanningAction<State>(
                     name: "swap 1 with 2",
-                    validator: x => x.Count("1") > 1,
+                    validator: x => x.Get("1").Count > 1,
                     executor: x => {
-                        x.Remove(new Dictionary<string, int>{ {"1" , 1 } });
-                        x.Add(new Dictionary<string, int>{ { "2", 1 } });
+                                var parameter1 = x.Get("1");
+                                parameter1.Count -= 1;
+                                x.Save(parameter1);
+                                var parameter2 = x.Get("2");
+                                parameter2.Count += 1;
+                                x.Save(parameter2);
                     }),
-                new PlanningAction<State<string>>(
+                new PlanningAction<State>(
                     name:"swap 2 with 1",
-                    validator:x => x.Count("2") > 1,
-                    executor:x =>{
-                        x.Remove(new Dictionary<string, int>{ { "2" , 1 } });
-                        x.Add(new Dictionary<string, int>{ { "1", 1 } });
+                    validator: x => x.Get("2") != null && x.Get("1").Count > 1,
+                    executor:x =>   {
+                                var parameter1 = x.Get("1");
+                                parameter1.Count += 1;
+                                x.Save(parameter1);
+                                var parameter2 = x.Get("2");
+                                parameter2.Count -= 1;
+                                x.Save(parameter2);
                     })
             };
-            initialState = new State<string>();
-            initialState.Add(new Dictionary<string, int> { { "1", 3 }, { "2", 6 } });
-            goalState = new State<string>();
-            goalState.Add(new Dictionary<string, int> { { "1", 5 }, { "2", 4 } });
+            initialState = new State();
+            initialState.Save(new Parameter { Id = "1", Count = 3, IsRequiredExectCount = true, IsRequiredForGoal = true });
+            initialState.Save(new Parameter { Id = "2", Count = 6, IsRequiredExectCount = true, IsRequiredForGoal = true });
+            goalState = new State();
+            initialState.Save(new Parameter { Id = "1", Count = 5, IsRequiredExectCount = true, IsRequiredForGoal = true });
+            initialState.Save(new Parameter { Id = "2", Count = 4, IsRequiredExectCount = true, IsRequiredForGoal = true });
         };
 
         Because of = () =>
-            plan = Planner.MakePlan<State<string>, string>(initialState, goalState, planningActions, Method.DepthFirst);
+            plan = Planner.MakePlan(initialState, goalState, planningActions, Method.DepthFirst);
 
         It should_return_plan = () =>
             plan.ShouldNotBeEmpty();
 
-        private static State<string> initialState;
-        private static State<string> goalState;
-        private static List<PlanningAction<State<string>>> planningActions;
-        private static IEnumerable<State<string>> plan;
+        private static State initialState;
+        private static State goalState;
+        private static List<PlanningAction<State>> planningActions;
+        private static IEnumerable<State> plan;
     }
 }

@@ -8,11 +8,11 @@ namespace Core
 {
     public static class Planner
     {
-        public static IEnumerable<S> MakePlan<S, T>(S initialState, S goalState, IEnumerable<PlanningAction<S>> planningActions, Method method) where S : State<T>
+        public static IEnumerable<State> MakePlan(State initialState, State goalState, IEnumerable<PlanningAction<State>> planningActions, Method method)
         {
-            var visitedStates = new HashSet<S>();
-            var unvisitedStates = UnvisitedStates<Path<S>>(method);
-            unvisitedStates.Add(0, new Path<S>(initialState));
+            var visitedStates = new HashSet<State>();
+            var unvisitedStates = UnvisitedStates<Path<State>>(method);
+            unvisitedStates.Add(0, new Path<State>(initialState));
             while (unvisitedStates.HasElements)
             {
                 var path = unvisitedStates.Get();
@@ -34,16 +34,16 @@ namespace Core
             return null;
         }
 
-        private static IPrioritized<double, S> UnvisitedStates<S>(Method method)
+        private static IPrioritized<double, T> UnvisitedStates<T>(Method method)
         {
-            IPrioritized<double, S> prioritized = null;
+            IPrioritized<double, T> prioritized = null;
             switch (method)
             {
                 case Method.BreadthFirst:
-                    prioritized = new PrioritizedQueue<double, S>();
+                    prioritized = new PrioritizedQueue<double, T>();
                     break;
                 case Method.DepthFirst:
-                    prioritized = new PrioritizedStack<double, S>();
+                    prioritized = new PrioritizedStack<double, T>();
                     break;
             }
             return prioritized;

@@ -1,73 +1,89 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Planning
 {
-    public class State<T> : IPlaningState, IEquatable<State<T>>
+    public class State : IPlaningState
     {
-        private readonly Dictionary<T, int> parameters = new Dictionary<T, int>();
+        private readonly Dictionary<string, Parameter> parameters = new Dictionary<string, Parameter>();
+
         public string CreatedBy { get; set; }
 
-        public void Add(Dictionary<T, int> items)
+        public IEnumerable<Parameter> GetAll()
         {
-            foreach (var item in items)
+            return parameters.Values;
+        }
+
+        public Parameter Get(string id)
+        {
+            Parameter value;
+            parameters.TryGetValue(id, out value);
+            return value;
+        }
+
+        public void Save(Parameter parameter)
+        {
+            Parameter value;
+            if (parameters.TryGetValue(parameter.Id, out value))
             {
-                if (parameters.ContainsKey(item.Key))
-                    parameters[item.Key] = parameters[item.Key] + item.Value;
+                parameters.Remove(parameter.Id);
+            }
+            parameters.Add(parameter.Id, parameter);
+        }
+
+        public void Remove(string id)
+        {
+            parameters.Remove(id);
+        }
+
+        public double Distance(IPlaningState destination)
+        {
+            var score = 0.0;
+            var requiredParameters = destination.GetAll().Where(x => x.IsRequiredForGoal);
+            foreach (var requiredParameter in requiredParameters)
+            {
+                var existingParameter = Get(requiredParameter.Id);
+                if (existingParameter == null) continue;
+                if (existingParameter.IsRequiredExectCount && existingParameter.Count == requiredParameter.Count)
+                {
+                    score += 1;
+                }
                 else
-                    parameters.Add(item.Key, item.Value);
+                {
+                    score += (double)requiredParameter.Count / existingParameter.Count;
+                }
             }
+            return score / destination.GetAll().Count(x => x.IsRequiredForGoal);
         }
 
-        public void Remove(Dictionary<T, int> items)
+        public object Clone()
         {
-            foreach (var item in items)
+            var newState = new State();
+            foreach (var parameter in GetAll())
             {
-                if (parameters.ContainsKey(item.Key))
-                    parameters[item.Key] = parameters[item.Key] - item.Value;
+                newState.Save(parameter);
             }
+            return newState;
         }
 
-        public bool Has(T item, int count)
+        public bool Equals(IPlaningState other)
         {
-            return parameters.ContainsKey(item) && parameters[item] == count;
-        }
-
-        public int Count(T item)
-        {
-            return parameters.ContainsKey(item) ? parameters[item] : 0;
-        }
-
-        public int ParametersCount()
-        {
-            return parameters.Count;
-        }
-
-        public double Distance(State<T> destination)
-        {
-            double score = 0.0;
-            foreach (var parameter in parameters)
+            var otherParameters = other.GetAll().Where(x => x.IsRequiredForGoal);
+            if (!otherParameters.Any()) return false;
+            foreach (var otherParameter in otherParameters)
             {
-                double needed = destination.Count(parameter.Key);
-                double exist = parameter.Value;
-                if (needed > exist) needed = exist;
-                score += needed / exist;
+                var parameter = Get(otherParameter.Id);
+                if (parameter == null) return false;
+                if (parameter.IsRequiredExectCount && parameter.Count != otherParameter.Count) return false;
             }
-            return score / parameters.Count;
+            return true;
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(State<T>) && Equals((State<T>)obj);
-        }
-
-        public bool Equals(State<T> other)
-        {
-            if (this.ParametersCount() != other.ParametersCount()) return false;
-            return parameters.All(p => other.Count(p.Key) == p.Value);
+            return obj.GetType() == typeof(State) && Equals((State)obj);
         }
 
         public override int GetHashCode()
@@ -82,12 +98,15 @@ namespace Core.Planning
 
             return iHash;
         }
+    }
 
-        public object Clone()
-        {
-            var newState = new State<T>();
-            newState.Add(parameters);
-            return newState;
-        }
+    public class Parameter
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public bool IsRequiredForGoal { get; set; }
+        //Todo: Make it enum less more equal
+        public bool IsRequiredExectCount { get; set; }
+        public int Count { get; set; }
     }
 }
