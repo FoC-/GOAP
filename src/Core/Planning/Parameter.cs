@@ -12,6 +12,19 @@ namespace Core.Planning
         public bool IsRequiredExectCount { get; set; }
         public int Count { get; set; }
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof (Parameter)) return false;
+            var other = (Parameter) obj;
+            if (this.Id == other.Id
+                && this.Count == other.Count)
+                return true;
+            return  false;
+
+        }
+
         public override int GetHashCode()
         {
             var iHash = 127;

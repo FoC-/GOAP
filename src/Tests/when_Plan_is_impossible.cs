@@ -10,7 +10,7 @@ namespace Tests
     {
         Establish context = () =>
         {
-            planningActions = new List<PlanningAction>
+            var planningActions = new List<PlanningAction>
             {
                 new PlanningAction(
                     name: "swap 1 with 2",
@@ -35,6 +35,8 @@ namespace Tests
                                 x.Save(parameter2);
                     })
             };
+
+            planner = new Planner(Method.DepthFirst, planningActions);
             initialState = new State();
             initialState.Save(new Parameter { Id = "1", Count = 3, IsRequiredExectCount = true, IsRequiredForGoal = true });
             initialState.Save(new Parameter { Id = "2", Count = 6, IsRequiredExectCount = true, IsRequiredForGoal = true });
@@ -44,14 +46,14 @@ namespace Tests
         };
 
         Because of = () =>
-            plan = Planner.MakePlan(initialState, goalState, planningActions, Method.DepthFirst);
+            plan = planner.MakePlan(initialState, goalState);
 
         It should_return_null = () =>
             plan.ShouldBeNull();
 
+        private static Planner planner;
         private static State initialState;
         private static State goalState;
-        private static List<PlanningAction> planningActions;
         private static IEnumerable<State> plan;
     }
 }

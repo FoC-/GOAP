@@ -6,18 +6,28 @@ using Core.PrioritizedCollections;
 
 namespace Core
 {
-    public static class Planner
+    public class Planner
     {
-        public static IEnumerable<State> MakePlan(State initialState, State goalState, IEnumerable<PlanningAction> planningActions, Method method)
+        private readonly Method method;
+        private readonly IEnumerable<PlanningAction> planningActions;
+        private static readonly StateComaparer Comparer = new StateComaparer();
+
+        public Planner(Method method, IEnumerable<PlanningAction> planningActions)
         {
-            var visitedStates = new HashSet<State>();
-            var unvisitedStates = UnvisitedStates<Path<State>>(method);
+            this.method = method;
+            this.planningActions = planningActions;
+        }
+
+        public IEnumerable<State> MakePlan(State initialState, State goalState)
+        {
+            var visitedStates = new HashSet<State>(Comparer);
+            var unvisitedStates = UnvisitedStates<Path<State>>();
             unvisitedStates.Add(0, new Path<State>(initialState));
             while (unvisitedStates.HasElements)
             {
                 var path = unvisitedStates.Get();
-                if (visitedStates.Contains(path.Node)) continue;
-                if (path.Node.Equals(goalState)) return path.Reverse();
+                if (visitedStates.Contains(path.Node, Comparer)) continue;
+                if (Comparer.Equals(path.Node, goalState)) return path.Reverse();
 
                 visitedStates.Add(path.Node);
 
@@ -34,7 +44,7 @@ namespace Core
             return null;
         }
 
-        private static IPrioritized<double, T> UnvisitedStates<T>(Method method)
+        private IPrioritized<double, T> UnvisitedStates<T>()
         {
             IPrioritized<double, T> prioritized = null;
             switch (method)

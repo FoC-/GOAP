@@ -5,7 +5,7 @@ using System.Linq;
 namespace Core.Planning
 {
     [Serializable]
-    public class State : IEquatable<State>
+    public class State
     {
         private readonly Dictionary<string, Parameter> parameters = new Dictionary<string, Parameter>();
 
@@ -56,39 +56,6 @@ namespace Core.Planning
                 }
             }
             return score / destination.GetAll().Count(x => x.IsRequiredForGoal);
-        }
-
-        public bool Equals(State other)
-        {
-            var otherParameters = other.GetAll();
-            if (!otherParameters.Any()) return false;
-            foreach (var otherParameter in otherParameters)
-            {
-                var parameter = Get(otherParameter.Id);
-                if (parameter == null) return false;
-                if (parameter.IsRequiredExectCount && parameter.Count != otherParameter.Count) return false;
-            }
-            return true;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(State) && Equals((State)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            int iHash = 127;
-
-            foreach (var pair in parameters)
-            {
-                iHash ^= pair.Key.GetHashCode();
-                iHash ^= pair.Value.GetHashCode();
-            }
-
-            return iHash;
         }
     }
 }
