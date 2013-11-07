@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core;
-using Core.Planning;
 using Machine.Specifications;
 
 namespace Tests
@@ -13,15 +12,15 @@ namespace Tests
         {
             planner = CreatePlanner();
 
-            initialState = new[]
+            initialState = new Dictionary<string, int>
             {
-                new Parameter {Name = "1", Count = 3, IsRequiredExectCount = true, IsRequiredForGoal = true},
-                new Parameter {Name = "2", Count = 6, IsRequiredExectCount = true, IsRequiredForGoal = true}
+                {"1" , 3},
+                {"2" , 6},
             };
-            goalState = new[]
+            goalState = new Dictionary<string, int>
             {
-                new Parameter { Name = "1", Count = 5, IsRequiredExectCount = true, IsRequiredForGoal = true },
-                new Parameter { Name = "2", Count = 4, IsRequiredExectCount = true, IsRequiredForGoal = true }
+                {"1" , 5},
+                {"2" , 4},
             };
         };
 
@@ -35,8 +34,8 @@ namespace Tests
             plan.Count().ShouldEqual(3);
 
         private static Planner planner;
-        private static IEnumerable<Parameter> initialState;
-        private static IEnumerable<Parameter> goalState;
-        private static IEnumerable<IEnumerable<Parameter>> plan;
+        private static Dictionary<string, int> initialState;
+        private static Dictionary<string, int> goalState;
+        private static IEnumerable<Dictionary<string, int>> plan;
     }
 }

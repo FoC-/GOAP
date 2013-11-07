@@ -8,24 +8,24 @@ namespace Core.Planning
     {
         public string Name { get; private set; }
 
-        private readonly Func<IEnumerable<Parameter>, bool> validator;
-        private readonly Action<IEnumerable<Parameter>> executor;
+        private readonly Func<Dictionary<string, int>, bool> validator;
+        private readonly Action<Dictionary<string, int>> executor;
 
-        public PlanningAction(string name, Func<IEnumerable<Parameter>, bool> validator, Action<IEnumerable<Parameter>> executor)
+        public PlanningAction(string name, Func<Dictionary<string, int>, bool> validator, Action<Dictionary<string, int>> executor)
         {
             Name = name;
             this.validator = validator;
             this.executor = executor;
         }
 
-        public bool CanExecute(IEnumerable<Parameter> state)
+        public bool CanExecute(Dictionary<string, int> state)
         {
             return validator(state);
         }
 
-        public IEnumerable<Parameter> Execute(IEnumerable<Parameter> state)
+        public Dictionary<string, int> Execute(Dictionary<string, int> state)
         {
-            var newState = state.Select(o => o.ShallowCopy()).ToList();
+            var newState = state.ToDictionary(x => x.Key, x => x.Value);
             executor(newState);
             return newState;
         }

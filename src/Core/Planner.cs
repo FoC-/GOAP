@@ -18,18 +18,18 @@ namespace Core
             this.planningActions = planningActions;
         }
 
-        public IEnumerable<IEnumerable<Parameter>> MakePlan(IEnumerable<Parameter> initialState, IEnumerable<Parameter> goalState)
+        public IEnumerable<Dictionary<string, int>> MakePlan(Dictionary<string, int> initialState, Dictionary<string, int> goalState)
         {
-            var visitedStates = new HashSet<int>();
-            var unvisitedStates = UnvisitedStates<Path<IEnumerable<Parameter>>>();
-            unvisitedStates.Add(0, new Path<IEnumerable<Parameter>>(initialState));
+            var visitedStates = new HashSet<Dictionary<string, int>>(Comparer);
+            var unvisitedStates = UnvisitedStates<Path<Dictionary<string, int>>>();
+            unvisitedStates.Add(0, new Path<Dictionary<string, int>>(initialState));
             while (unvisitedStates.HasElements)
             {
                 var path = unvisitedStates.Get();
-                if (visitedStates.Contains(Comparer.GetHashCode(path.Node))) continue;
+                if (visitedStates.Contains(path.Node)) continue;
                 if (Comparer.Equals(path.Node, goalState)) return path.Reverse();
 
-                visitedStates.Add(Comparer.GetHashCode(path.Node));
+                visitedStates.Add(path.Node);
 
                 var plans = planningActions
                     .Where(action => action.CanExecute(path.Node))
@@ -41,7 +41,7 @@ namespace Core
                     unvisitedStates.Add(plan.Cost + Comparer.Distance(plan.Node, goalState), plan);
                 }
             }
-            return null;
+            return Enumerable.Empty<Dictionary<string, int>>();
         }
 
         private IPrioritized<double, T> UnvisitedStates<T>()

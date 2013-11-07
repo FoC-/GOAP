@@ -3,43 +3,42 @@ using System.Linq;
 
 namespace Core.Planning
 {
-    public class StateComaparer : IEqualityComparer<IEnumerable<Parameter>>
+    public class StateComaparer : IEqualityComparer<Dictionary<string, int>>
     {
-        public bool Equals(IEnumerable<Parameter> left, IEnumerable<Parameter> right)
+        public bool Equals(Dictionary<string, int> x, Dictionary<string, int> y)
         {
-            if (!left.Any() && !right.Any()) return true;
-            return left.Count() == right.Count() && left.All(l => right.Any(r => l.Name == r.Name && l.Count == r.Count));
+            return x.Count == y.Count && !x.Except(y).Any();
         }
 
-        public int GetHashCode(IEnumerable<Parameter> state)
+        public int GetHashCode(Dictionary<string, int> state)
         {
-            var parameters = state.OrderBy(x => x.Name).ToList();
             var hash = 127;
-            foreach (var parameter in parameters)
+            foreach (var parameter in state)
             {
-                hash ^= parameter.ToString().GetHashCode();
+                hash ^= parameter.Key.GetHashCode();
+                hash ^= parameter.Value.GetHashCode();
             }
             return hash;
         }
 
-        public double Distance(IEnumerable<Parameter> source, IEnumerable<Parameter> destination)
+        public double Distance(Dictionary<string, int> x, Dictionary<string, int> y)
         {
             var score = 0.0;
-            var requiredParameters = destination.Where(x => x.IsRequiredForGoal);
-            foreach (var requiredParameter in requiredParameters)
+            foreach (var requiredParameter in y)
             {
-                var existingParameter = source.SingleOrDefault(p => p.Name == requiredParameter.Name);
-                if (existingParameter == null) continue;
-                if (existingParameter.IsRequiredExectCount && existingParameter.Count == requiredParameter.Count)
+                int existingParameter = 0;
+                x.TryGetValue(requiredParameter.Key, out existingParameter);
+                if (existingParameter == 0) continue;
+                if (existingParameter == requiredParameter.Value)
                 {
                     score += 1;
                 }
                 else
                 {
-                    score += (double)requiredParameter.Count / existingParameter.Count;
+                    score += (double)requiredParameter.Value / existingParameter;
                 }
             }
-            return score / destination.Count(x => x.IsRequiredForGoal);
+            return score / y.Count;
         }
     }
 }

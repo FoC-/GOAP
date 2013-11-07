@@ -4,20 +4,20 @@ using Machine.Specifications;
 
 namespace Tests.States
 {
-    [Subject(typeof(IEnumerable<Parameter>))]
+    [Subject(typeof(Dictionary<string, int>))]
     public class when_Equals_called
     {
         Establish context = () =>
         {
-            source = new[]{
-                new Parameter { Name = "param1", Count = 10, IsRequiredExectCount = true, IsRequiredForGoal = true },
-                new Parameter { Name = "param2", Count = 20, IsRequiredExectCount = true, IsRequiredForGoal = true },
-                new Parameter { Name = "param3", Count = 30, IsRequiredExectCount = true, IsRequiredForGoal = true },
+            source = new Dictionary<string, int>{
+                {"param1", 10},
+                {"param2", 20},
+                {"param3", 30},
             };
-            destination = new[]{
-                new Parameter { Name = "param3", Count = 30, IsRequiredExectCount = true, IsRequiredForGoal = true },
-                new Parameter { Name = "param2", Count = 20, IsRequiredExectCount = true, IsRequiredForGoal = true },
-                new Parameter { Name = "param1", Count = 10, IsRequiredExectCount = true, IsRequiredForGoal = true },
+            destination = new Dictionary<string, int>{
+                {"param3", 30},
+                {"param2", 20},
+                {"param1", 10},
             };
             comparer = new StateComaparer();
         };
@@ -28,8 +28,8 @@ namespace Tests.States
             result.ShouldBeTrue();
 
         private static bool result;
-        private static IEnumerable<Parameter> source;
-        private static IEnumerable<Parameter> destination;
+        private static Dictionary<string, int> source;
+        private static Dictionary<string, int> destination;
         private static StateComaparer comparer;
     }
 }
