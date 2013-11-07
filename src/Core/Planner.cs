@@ -20,16 +20,16 @@ namespace Core
 
         public IEnumerable<IEnumerable<Parameter>> MakePlan(IEnumerable<Parameter> initialState, IEnumerable<Parameter> goalState)
         {
-            var visitedStates = new HashSet<IEnumerable<Parameter>>(Comparer);
+            var visitedStates = new HashSet<int>();
             var unvisitedStates = UnvisitedStates<Path<IEnumerable<Parameter>>>();
             unvisitedStates.Add(0, new Path<IEnumerable<Parameter>>(initialState));
             while (unvisitedStates.HasElements)
             {
                 var path = unvisitedStates.Get();
-                if (visitedStates.Contains(path.Node, Comparer)) continue;
+                if (visitedStates.Contains(Comparer.GetHashCode(path.Node))) continue;
                 if (Comparer.Equals(path.Node, goalState)) return path.Reverse();
 
-                visitedStates.Add(path.Node);
+                visitedStates.Add(Comparer.GetHashCode(path.Node));
 
                 var plans = planningActions
                     .Where(action => action.CanExecute(path.Node))

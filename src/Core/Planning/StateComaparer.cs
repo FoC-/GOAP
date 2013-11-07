@@ -7,21 +7,18 @@ namespace Core.Planning
     {
         public bool Equals(IEnumerable<Parameter> left, IEnumerable<Parameter> right)
         {
-
             if (!left.Any() && !right.Any()) return true;
-            return left.Count() == right.Count() && left.All(l => right.Any(r => l.Equals(r)));
+            return left.Count() == right.Count() && left.All(l => right.Any(r => l.Name == r.Name && l.Count == r.Count));
         }
 
-        public int GetHashCode(IEnumerable<Parameter> obj)
+        public int GetHashCode(IEnumerable<Parameter> state)
         {
+            var parameters = state.OrderBy(x => x.Name).ToList();
             var hash = 127;
-
-            foreach (var pair in obj)
+            foreach (var parameter in parameters)
             {
-                hash ^= pair.Name.GetHashCode();
-                hash ^= pair.Count.GetHashCode();
+                hash ^= parameter.ToString().GetHashCode();
             }
-
             return hash;
         }
 
