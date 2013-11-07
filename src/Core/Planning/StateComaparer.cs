@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Core.Planning
 {
-    public class StateComaparer : IEqualityComparer<Dictionary<string, int>>
+    public class StateComaparer : IStateComparer
     {
         public bool Equals(Dictionary<string, int> x, Dictionary<string, int> y)
         {

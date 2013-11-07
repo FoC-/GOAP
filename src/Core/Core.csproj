@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Planning\IStateComparer.cs" />
     <Compile Include="Planning\StateComaparer.cs" />
     <Compile Include="Graph\Path.cs" />
     <Compile Include="Planning\PlanningAction.cs" />

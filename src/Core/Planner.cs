@@ -10,35 +10,36 @@ namespace Core
     {
         private readonly Method method;
         private readonly IEnumerable<PlanningAction> planningActions;
-        private static readonly StateComaparer Comparer = new StateComaparer();
+        private readonly IStateComparer stateComparer;
 
-        public Planner(Method method, IEnumerable<PlanningAction> planningActions)
+        public Planner(Method method, IEnumerable<PlanningAction> planningActions, IStateComparer stateComparer)
         {
             this.method = method;
             this.planningActions = planningActions;
+            this.stateComparer = stateComparer;
         }
 
         public IEnumerable<Dictionary<string, int>> MakePlan(Dictionary<string, int> initialState, Dictionary<string, int> goalState)
         {
-            var visitedStates = new HashSet<Dictionary<string, int>>(Comparer);
+            var visitedStates = new HashSet<Dictionary<string, int>>(stateComparer);
             var unvisitedStates = UnvisitedStates<Path<Dictionary<string, int>>>();
             unvisitedStates.Add(0, new Path<Dictionary<string, int>>(initialState));
             while (unvisitedStates.HasElements)
             {
                 var path = unvisitedStates.Get();
                 if (visitedStates.Contains(path.Node)) continue;
-                if (Comparer.Equals(path.Node, goalState)) return path.Reverse();
+                if (stateComparer.Equals(path.Node, goalState)) return path.Reverse();
 
                 visitedStates.Add(path.Node);
 
                 var plans = planningActions
                     .Where(action => action.CanExecute(path.Node))
                     .Select(action => action.Execute(path.Node))
-                    .Select(state => path.AddChild(state, Comparer.Distance(state, path.Node)));
+                    .Select(state => path.AddChild(state, stateComparer.Distance(state, path.Node)));
 
                 foreach (var plan in plans)
                 {
-                    unvisitedStates.Add(plan.Cost + Comparer.Distance(plan.Node, goalState), plan);
+                    unvisitedStates.Add(plan.Cost + stateComparer.Distance(plan.Node, goalState), plan);
                 }
             }
             return Enumerable.Empty<Dictionary<string, int>>();

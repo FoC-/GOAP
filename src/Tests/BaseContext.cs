@@ -27,8 +27,9 @@ namespace Tests
                                 x["2"] -= 1;
                             }),
                 };
+            var stateComparer = new StateComaparer();
 
-            return new Planner(Method.DepthFirst, planningActions);
+            return new Planner(Method.DepthFirst, planningActions, stateComparer);
         }
     }
 }
