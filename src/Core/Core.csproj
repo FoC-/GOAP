@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Planning\StateComaparer.cs" />
-    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Graph\Path.cs" />
     <Compile Include="Planning\Parameter.cs" />
     <Compile Include="Planning\PlanningAction.cs" />

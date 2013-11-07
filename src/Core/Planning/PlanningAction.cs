@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Extensions;
 
 namespace Core.Planning
 {
@@ -27,7 +26,7 @@ namespace Core.Planning
 
         public IEnumerable<Parameter> Execute(IEnumerable<Parameter> state)
         {
-            var newState = state.ShallowCopy().ToList();
+            var newState = state.Select(o => o.ShallowCopy()).ToList();
             do
             {
                 executor(newState);
