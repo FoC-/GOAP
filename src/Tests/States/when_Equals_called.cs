@@ -4,7 +4,7 @@ using Machine.Specifications;
 
 namespace Tests.States
 {
-    [Subject(typeof(Dictionary<string, int>))]
+    [Subject(typeof(DictionaryStateComaparer))]
     public class when_Equals_called
     {
         Establish context = () =>
@@ -19,7 +19,7 @@ namespace Tests.States
                 {"param2", 20},
                 {"param1", 10},
             };
-            comparer = new StateComaparer();
+            comparer = new DictionaryStateComaparer();
         };
         Because of = () =>
             result = comparer.Equals(source, destination);
@@ -30,6 +30,6 @@ namespace Tests.States
         private static bool result;
         private static Dictionary<string, int> source;
         private static Dictionary<string, int> destination;
-        private static StateComaparer comparer;
+        private static DictionaryStateComaparer comparer;
     }
 }

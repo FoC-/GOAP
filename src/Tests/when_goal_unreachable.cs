@@ -4,7 +4,7 @@ using Machine.Specifications;
 
 namespace Tests
 {
-    [Subject(typeof(Planner))]
+    [Subject(typeof(Planner<>))]
     class when_goal_unreachable : BaseContext
     {
         Establish context = () =>
@@ -29,7 +29,7 @@ namespace Tests
         It should_be_empty = () =>
             plan.ShouldBeEmpty();
 
-        private static Planner planner;
+        private static Planner<Dictionary<string, int>> planner;
         private static Dictionary<string, int> initialState;
         private static Dictionary<string, int> goalState;
         private static IEnumerable<Dictionary<string, int>> plan;

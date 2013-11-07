@@ -1,31 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Core.Planning
 {
-    public class PlanningAction
+    public class PlanningAction<T>
     {
         public string Name { get; private set; }
 
-        private readonly Func<Dictionary<string, int>, bool> validator;
-        private readonly Action<Dictionary<string, int>> executor;
+        private readonly Func<T, bool> validator;
+        private readonly Action<T> executor;
 
-        public PlanningAction(string name, Func<Dictionary<string, int>, bool> validator, Action<Dictionary<string, int>> executor)
+        public PlanningAction(string name, Func<T, bool> validator, Action<T> executor)
         {
             Name = name;
             this.validator = validator;
             this.executor = executor;
         }
 
-        public bool CanExecute(Dictionary<string, int> state)
+        public bool CanExecute(T state)
         {
             return validator(state);
         }
 
-        public Dictionary<string, int> Execute(Dictionary<string, int> state)
+        public T Execute(T state)
         {
-            var newState = state.ToDictionary(x => x.Key, x => x.Value);
+            var newState = (T)state;
             executor(newState);
             return newState;
         }

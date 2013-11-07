@@ -5,7 +5,7 @@ using Machine.Specifications;
 
 namespace Tests
 {
-    [Subject(typeof(Planner))]
+    [Subject(typeof(Planner<>))]
     class when_goal_reachable : BaseContext
     {
         Establish context = () =>
@@ -33,7 +33,7 @@ namespace Tests
         It should_contain_3_steps = () =>
             plan.Count().ShouldEqual(3);
 
-        private static Planner planner;
+        private static Planner<Dictionary<string, int>> planner;
         private static Dictionary<string, int> initialState;
         private static Dictionary<string, int> goalState;
         private static IEnumerable<Dictionary<string, int>> plan;

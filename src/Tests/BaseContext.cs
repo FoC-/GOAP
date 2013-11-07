@@ -6,11 +6,11 @@ namespace Tests
 {
     internal class BaseContext
     {
-        protected static Planner CreatePlanner()
+        protected static Planner<Dictionary<string, int>> CreatePlanner()
         {
-            var planningActions = new List<PlanningAction>
+            var planningActions = new List<PlanningAction<Dictionary<string, int>>>
                 {
-                    new PlanningAction(
+                    new PlanningAction<Dictionary<string, int>>(
                         name: "swap 1 with 2",
                         validator: x => x["1"] > 1,
                         executor: x =>
@@ -18,7 +18,7 @@ namespace Tests
                                 x["1"] -= 1;
                                 x["2"] += 1;
                             }),
-                    new PlanningAction(
+                    new PlanningAction<Dictionary<string, int>>(
                         name:"swap 2 with 1",
                         validator: x => x["2"] > 1,
                         executor: x => 
@@ -27,9 +27,9 @@ namespace Tests
                                 x["2"] -= 1;
                             }),
                 };
-            var stateComparer = new StateComaparer();
+            var stateComparer = new DictionaryStateComaparer();
 
-            return new Planner(Method.DepthFirst, planningActions, stateComparer);
+            return new Planner<Dictionary<string, int>>(Method.DepthFirst, planningActions, stateComparer);
         }
     }
 }

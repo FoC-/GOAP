@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace Core.Planning
 {
-    public interface IStateComparer : IEqualityComparer<Dictionary<string, int>>
+    public interface IStateComparer<T> : IEqualityComparer<T>
     {
-        double Distance(Dictionary<string, int> x, Dictionary<string, int> y);
+        double Distance(T x, T y);
     }
 }
