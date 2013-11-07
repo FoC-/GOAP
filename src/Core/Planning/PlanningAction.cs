@@ -10,7 +10,6 @@ namespace Core.Planning
 
         private readonly Func<IEnumerable<Parameter>, bool> validator;
         private readonly Action<IEnumerable<Parameter>> executor;
-        public bool IsMultiExecutable { get; set; }
 
         public PlanningAction(string name, Func<IEnumerable<Parameter>, bool> validator, Action<IEnumerable<Parameter>> executor)
         {
@@ -27,10 +26,7 @@ namespace Core.Planning
         public IEnumerable<Parameter> Execute(IEnumerable<Parameter> state)
         {
             var newState = state.Select(o => o.ShallowCopy()).ToList();
-            do
-            {
-                executor(newState);
-            } while (IsMultiExecutable && CanExecute(newState));
+            executor(newState);
             return newState;
         }
 
