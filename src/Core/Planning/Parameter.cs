@@ -5,7 +5,6 @@ namespace Core.Planning
     [Serializable]
     public class Parameter
     {
-        public string Id { get; set; }
         public string Name { get; set; }
         public bool IsRequiredForGoal { get; set; }
         //Todo: Make it enum less more equal
@@ -16,19 +15,14 @@ namespace Core.Planning
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (Parameter)) return false;
-            var other = (Parameter) obj;
-            if (this.Id == other.Id
-                && this.Count == other.Count)
-                return true;
-            return  false;
-
+            if (obj.GetType() != typeof(Parameter)) return false;
+            var other = (Parameter)obj;
+            return this.Name == other.Name && this.Count == other.Count;
         }
 
         public override int GetHashCode()
         {
             var iHash = 127;
-            iHash ^= Id == null ? 0 : Id.GetHashCode();
             iHash ^= Name == null ? 0 : Name.GetHashCode();
             iHash ^= IsRequiredForGoal.GetHashCode();
             iHash ^= IsRequiredExectCount.GetHashCode();
@@ -36,9 +30,14 @@ namespace Core.Planning
             return iHash;
         }
 
+        public Parameter ShallowCopy()
+        {
+            return (Parameter)MemberwiseClone();
+        }
+
         public override string ToString()
         {
-            return string.Format("Id: {0}, Count: {1}", Id, Count);
+            return string.Format("Name: {0}, Count: {1}", Name, Count);
         }
     }
 }

@@ -3,28 +3,46 @@ using System.Linq;
 
 namespace Core.Planning
 {
-    public class StateComaparer : IEqualityComparer<State>
+    public class StateComaparer : IEqualityComparer<IEnumerable<Parameter>>
     {
-        public bool Equals(State left, State right)
+        public bool Equals(IEnumerable<Parameter> left, IEnumerable<Parameter> right)
         {
-            var leftParameters = left.GetAll().ToList();
-            var rightParameters = right.GetAll().ToList();
 
-            if (!leftParameters.Any() && !rightParameters.Any()) return true;
-            return leftParameters.Count() == rightParameters.Count() && leftParameters.All(l => rightParameters.Any(r => l.Equals(r)));
+            if (!left.Any() && !right.Any()) return true;
+            return left.Count() == right.Count() && left.All(l => right.Any(r => l.Equals(r)));
         }
 
-        public int GetHashCode(State obj)
+        public int GetHashCode(IEnumerable<Parameter> obj)
         {
             var hash = 127;
 
-            foreach (var pair in obj.GetAll().OrderBy(x => x.Id))
+            foreach (var pair in obj)
             {
-                hash ^= pair.Id.GetHashCode();
+                hash ^= pair.Name.GetHashCode();
                 hash ^= pair.Count.GetHashCode();
             }
 
             return hash;
+        }
+
+        public double Distance(IEnumerable<Parameter> source, IEnumerable<Parameter> destination)
+        {
+            var score = 0.0;
+            var requiredParameters = destination.Where(x => x.IsRequiredForGoal);
+            foreach (var requiredParameter in requiredParameters)
+            {
+                var existingParameter = source.SingleOrDefault(p => p.Name == requiredParameter.Name);
+                if (existingParameter == null) continue;
+                if (existingParameter.IsRequiredExectCount && existingParameter.Count == requiredParameter.Count)
+                {
+                    score += 1;
+                }
+                else
+                {
+                    score += (double)requiredParameter.Count / existingParameter.Count;
+                }
+            }
+            return score / destination.Count(x => x.IsRequiredForGoal);
         }
     }
 }

@@ -44,7 +44,6 @@
     <Compile Include="Graph\Path.cs" />
     <Compile Include="Planning\Parameter.cs" />
     <Compile Include="Planning\PlanningAction.cs" />
-    <Compile Include="Planning\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Planner.cs" />
     <Compile Include="PrioritizedCollections\IPrioritized.cs" />

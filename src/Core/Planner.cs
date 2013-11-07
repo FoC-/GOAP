@@ -18,11 +18,11 @@ namespace Core
             this.planningActions = planningActions;
         }
 
-        public IEnumerable<State> MakePlan(State initialState, State goalState)
+        public IEnumerable<IEnumerable<Parameter>> MakePlan(IEnumerable<Parameter> initialState, IEnumerable<Parameter> goalState)
         {
-            var visitedStates = new HashSet<State>(Comparer);
-            var unvisitedStates = UnvisitedStates<Path<State>>();
-            unvisitedStates.Add(0, new Path<State>(initialState));
+            var visitedStates = new HashSet<IEnumerable<Parameter>>(Comparer);
+            var unvisitedStates = UnvisitedStates<Path<IEnumerable<Parameter>>>();
+            unvisitedStates.Add(0, new Path<IEnumerable<Parameter>>(initialState));
             while (unvisitedStates.HasElements)
             {
                 var path = unvisitedStates.Get();
@@ -34,11 +34,11 @@ namespace Core
                 var plans = planningActions
                     .Where(action => action.CanExecute(path.Node))
                     .Select(action => action.Execute(path.Node))
-                    .Select(state => path.AddChild(state, state.Distance(path.Node)));
+                    .Select(state => path.AddChild(state, Comparer.Distance(state, path.Node)));
 
                 foreach (var plan in plans)
                 {
-                    unvisitedStates.Add(plan.Cost + plan.Node.Distance(goalState), plan);
+                    unvisitedStates.Add(plan.Cost + Comparer.Distance(plan.Node, goalState), plan);
                 }
             }
             return null;

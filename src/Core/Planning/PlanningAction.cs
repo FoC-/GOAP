@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Extensions;
 
 namespace Core.Planning
@@ -7,26 +9,25 @@ namespace Core.Planning
     {
         public string Name { get; private set; }
 
-        private readonly Func<State, bool> validator;
-        private readonly Action<State> executor;
+        private readonly Func<IEnumerable<Parameter>, bool> validator;
+        private readonly Action<IEnumerable<Parameter>> executor;
         public bool IsMultiExecutable { get; set; }
 
-        public PlanningAction(string name, Func<State, bool> validator, Action<State> executor)
+        public PlanningAction(string name, Func<IEnumerable<Parameter>, bool> validator, Action<IEnumerable<Parameter>> executor)
         {
             Name = name;
             this.validator = validator;
             this.executor = executor;
         }
 
-        public bool CanExecute(State state)
+        public bool CanExecute(IEnumerable<Parameter> state)
         {
             return validator(state);
         }
 
-        public State Execute(State state)
+        public IEnumerable<Parameter> Execute(IEnumerable<Parameter> state)
         {
-            var newState = state.DeepClone();
-            newState.CreatedBy = Name;
+            var newState = state.ShallowCopy().ToList();
             do
             {
                 executor(newState);
