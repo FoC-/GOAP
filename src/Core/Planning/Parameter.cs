@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace Core.Planning
+﻿namespace Core.Planning
 {
-    [Serializable]
     public class Parameter
     {
         public string Name { get; set; }

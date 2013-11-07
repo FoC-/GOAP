@@ -45,8 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="when_Plan_is_impossible.cs" />
-    <Compile Include="when_Plan_is_possible.cs" />
+    <Compile Include="BaseContext.cs" />
+    <Compile Include="when_goal_reachable.cs" />
+    <Compile Include="when_goal_unreachable.cs" />
     <Compile Include="when_Equals_called.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
