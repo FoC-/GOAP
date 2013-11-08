@@ -19,33 +19,43 @@ namespace GOAP
             this.planningStateComparer = planningStateComparer;
         }
 
-        public IEnumerable<T> MakePlan(T initialState, T goalState)
+        public IEnumerable<IPlanningAction<T>> MakePlan(T initialState, T goalState)
         {
-            var visitedStates = new HashSet<T>(planningStateComparer);
-            var unvisitedStates = UnvisitedStates<Path<T>>();
-            unvisitedStates.Add(0, new Path<T>(initialState));
-            while (unvisitedStates.HasElements)
-            {
-                var path = unvisitedStates.Get();
-                if (visitedStates.Contains(path.Node)) continue;
-                if (planningStateComparer.Equals(path.Node, goalState)) return path.Reverse();
+            var visitedStates = new HashSet<T>(planningStateComparer) { initialState };
+            var unvisitedPathes = UnvisitedPathes<Path<IPlanningAction<T>>>();
 
-                visitedStates.Add(path.Node);
+            var initialPossibleActions = planningActions
+                .Where(action => action.CanExecute(initialState))
+                .Select(action => new Path<IPlanningAction<T>>(action));
+
+            foreach (var action in initialPossibleActions)
+            {
+                unvisitedPathes.Add(0, action);
+            }
+
+            while (unvisitedPathes.HasElements)
+            {
+                var path = unvisitedPathes.Get();
+
+                var reachedByPath = path.Reverse().Aggregate(initialState, (current, action) => action.Execute(current));
+                if (visitedStates.Contains(reachedByPath)) continue;
+                if (planningStateComparer.Equals(reachedByPath, goalState)) return path.Reverse();
+
+                visitedStates.Add(reachedByPath);
 
                 var plans = planningActions
-                    .Where(action => action.CanExecute(path.Node))
-                    .Select(action => action.Execute(path.Node))
-                    .Select(state => path.AddChild(state, planningStateComparer.Distance(state, path.Node)));
+                    .Where(action => action.CanExecute(reachedByPath))
+                    .Select(action => path.AddChild(action, planningStateComparer.Distance(action.Execute(goalState), goalState)));
 
                 foreach (var plan in plans)
                 {
-                    unvisitedStates.Add(plan.Cost + planningStateComparer.Distance(plan.Node, goalState), plan);
+                    unvisitedPathes.Add(plan.Cost + planningStateComparer.Distance(plan.Node.Execute(reachedByPath), goalState), plan);
                 }
             }
-            return Enumerable.Empty<T>();
+            return Enumerable.Empty<IPlanningAction<T>>();
         }
 
-        private IPrioritized<double, S> UnvisitedStates<S>()
+        private IPrioritized<double, S> UnvisitedPathes<S>()
         {
             IPrioritized<double, S> prioritized = null;
             switch (planningMethod)

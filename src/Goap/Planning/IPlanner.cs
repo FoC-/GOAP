@@ -4,6 +4,6 @@ namespace GOAP.Planning
 {
     public interface IPlanner<T>
     {
-        IEnumerable<T> MakePlan(T initialState, T goalState);
+        IEnumerable<IPlanningAction<T>> MakePlan(T initialState, T goalState);
     }
 }

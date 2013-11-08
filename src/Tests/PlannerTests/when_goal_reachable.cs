@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GOAP;
+using GOAP.Planning;
 using Machine.Specifications;
 
 namespace Tests.PlannerTests
@@ -30,12 +31,12 @@ namespace Tests.PlannerTests
         It should_return_plan = () =>
             plan.ShouldNotBeEmpty();
 
-        It should_contain_3_steps = () =>
-            plan.Count().ShouldEqual(3);
+        It should_contain_2_steps = () =>
+            plan.Count().ShouldEqual(2);
 
         private static Planner<State> planner;
         private static State initialState;
         private static State goalState;
-        private static IEnumerable<State> plan;
+        private static IEnumerable<IPlanningAction<State>> plan;
     }
 }

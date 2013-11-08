@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GOAP;
+using GOAP.Planning;
 using Machine.Specifications;
 
 namespace Tests.PlannerTests
@@ -32,6 +33,6 @@ namespace Tests.PlannerTests
         private static Planner<State> planner;
         private static State initialState;
         private static State goalState;
-        private static IEnumerable<Dictionary<string, int>> plan;
+        private static IEnumerable<IPlanningAction<State>> plan;
     }
 }
