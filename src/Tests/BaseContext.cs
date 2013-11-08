@@ -30,7 +30,7 @@ namespace Tests
                 };
             var stateComparer = new DictionaryPlanningStateComaparer();
 
-            return new Planner<DictionaryState>(Method.DepthFirst, planningActions, stateComparer);
+            return new Planner<DictionaryState>(PlanningMethod.DepthFirst, planningActions, stateComparer);
         }
     }
 }

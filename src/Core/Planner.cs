@@ -8,13 +8,13 @@ namespace Core
 {
     public class Planner<T>
     {
-        private readonly Method method;
+        private readonly PlanningMethod planningMethod;
         private readonly IEnumerable<IPlanningAction<T>> planningActions;
         private readonly IPlanningStateComparer<T> planningStateComparer;
 
-        public Planner(Method method, IEnumerable<IPlanningAction<T>> planningActions, IPlanningStateComparer<T> planningStateComparer)
+        public Planner(PlanningMethod planningMethod, IEnumerable<IPlanningAction<T>> planningActions, IPlanningStateComparer<T> planningStateComparer)
         {
-            this.method = method;
+            this.planningMethod = planningMethod;
             this.planningActions = planningActions;
             this.planningStateComparer = planningStateComparer;
         }
@@ -48,12 +48,12 @@ namespace Core
         private IPrioritized<double, S> UnvisitedStates<S>()
         {
             IPrioritized<double, S> prioritized = null;
-            switch (method)
+            switch (planningMethod)
             {
-                case Method.BreadthFirst:
+                case PlanningMethod.BreadthFirst:
                     prioritized = new PrioritizedQueue<double, S>();
                     break;
-                case Method.DepthFirst:
+                case PlanningMethod.DepthFirst:
                     prioritized = new PrioritizedStack<double, S>();
                     break;
             }

@@ -45,7 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Planner.cs" />
     <Compile Include="PrioritizedCollections\IPrioritized.cs" />
-    <Compile Include="Planning\Method.cs" />
+    <Compile Include="Planning\PlanningMethod.cs" />
     <Compile Include="PrioritizedCollections\PrioritizedQueue.cs" />
     <Compile Include="PrioritizedCollections\PrioritizedStack.cs" />
   </ItemGroup>
