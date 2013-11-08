@@ -1,10 +1,10 @@
-﻿using GOAP;
+using GOAP;
 using Machine.Specifications;
 
-namespace Tests.States
+namespace Tests.StateComaparerTests
 {
     [Subject(typeof(StateComaparer))]
-    public class when_Equals_called
+    class when_GetHashCode_called
     {
         Establish context = () =>
         {
@@ -18,10 +18,9 @@ namespace Tests.States
                 {"param2", 20},
                 {"param1", 10},
             };
-            comparer = new StateComaparer();
         };
         Because of = () =>
-            result = comparer.Equals(source, destination);
+            result = new StateComaparer().GetHashCode(source) == new StateComaparer().GetHashCode(destination);
 
         It should_return_true = () =>
             result.ShouldBeTrue();
@@ -29,6 +28,5 @@ namespace Tests.States
         private static bool result;
         private static State source;
         private static State destination;
-        private static StateComaparer comparer;
     }
 }

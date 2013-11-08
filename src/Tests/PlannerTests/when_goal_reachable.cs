@@ -3,7 +3,7 @@ using System.Linq;
 using GOAP;
 using Machine.Specifications;
 
-namespace Tests
+namespace Tests.PlannerTests
 {
     [Subject(typeof(Planner<>))]
     class when_goal_reachable : BaseContext
