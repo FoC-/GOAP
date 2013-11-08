@@ -1,7 +1,7 @@
 ﻿using System;
 using GOAP.Planning;
 
-namespace Tests.Examples
+namespace GOAP
 {
     public class PlanningAction<T> : IPlanningAction<T> where T : ICloneable
     {

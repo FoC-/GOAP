@@ -1,5 +1,5 @@
-﻿using Machine.Specifications;
-using Tests.Examples;
+﻿using GOAP;
+using Machine.Specifications;
 
 namespace Tests.States
 {

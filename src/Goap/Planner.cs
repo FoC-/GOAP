@@ -6,7 +6,7 @@ using GOAP.PrioritizedCollections;
 
 namespace GOAP
 {
-    public class Planner<T>
+    public class Planner<T> : IPlanner<T>
     {
         private readonly PlanningMethod planningMethod;
         private readonly IEnumerable<IPlanningAction<T>> planningActions;

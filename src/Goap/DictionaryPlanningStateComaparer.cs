@@ -1,7 +1,7 @@
 using System.Linq;
 using GOAP.Planning;
 
-namespace Tests.Examples
+namespace GOAP
 {
     public class DictionaryPlanningStateComaparer : IPlanningStateComparer<DictionaryState>
     {

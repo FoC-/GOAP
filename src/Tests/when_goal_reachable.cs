@@ -2,7 +2,6 @@
 using System.Linq;
 using GOAP;
 using Machine.Specifications;
-using Tests.Examples;
 
 namespace Tests
 {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Tests.Examples
+namespace GOAP
 {
     public class DictionaryState : Dictionary<string, int>, ICloneable
     {

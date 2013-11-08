@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GOAP;
 using GOAP.Planning;
-using Tests.Examples;
 
 namespace Tests
 {
