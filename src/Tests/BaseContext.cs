@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core;
-using Core.Planning;
+using GOAP;
+using GOAP.Planning;
 using Tests.Examples;
 
 namespace Tests

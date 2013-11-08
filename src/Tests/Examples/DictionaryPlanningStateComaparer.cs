@@ -1,5 +1,5 @@
 using System.Linq;
-using Core.Planning;
+using GOAP.Planning;
 
 namespace Tests.Examples
 {

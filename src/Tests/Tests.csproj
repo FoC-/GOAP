@@ -59,9 +59,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
+    <ProjectReference Include="..\Core\GOAP.csproj">
       <Project>{1DDB20D5-939E-46A0-A1A8-FEAD675CDE84}</Project>
-      <Name>Core</Name>
+      <Name>GOAP</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

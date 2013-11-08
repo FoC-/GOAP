@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Core.Planning
+namespace GOAP.Planning
 {
     public interface IPlanningStateComparer<in T> : IEqualityComparer<T>
     {

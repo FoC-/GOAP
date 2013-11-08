@@ -1,4 +1,4 @@
-namespace Core.Planning
+namespace GOAP.Planning
 {
     public enum PlanningMethod { BreadthFirst, DepthFirst }
 }

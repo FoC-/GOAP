@@ -1,4 +1,4 @@
-namespace Core.PrioritizedCollections
+namespace GOAP.PrioritizedCollections
 {
     internal interface IPrioritized<P, V>
     {

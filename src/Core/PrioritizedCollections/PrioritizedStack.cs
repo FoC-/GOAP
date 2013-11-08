@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.PrioritizedCollections
+namespace GOAP.PrioritizedCollections
 {
     internal class PrioritizedStack<K, V> : IPrioritized<K, V>
     {

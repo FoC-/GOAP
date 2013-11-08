@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.Graph;
-using Core.Planning;
-using Core.PrioritizedCollections;
+using GOAP.Graph;
+using GOAP.Planning;
+using GOAP.PrioritizedCollections;
 
-namespace Core
+namespace GOAP
 {
     public class Planner<T>
     {

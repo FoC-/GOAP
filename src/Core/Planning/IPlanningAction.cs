@@ -1,4 +1,4 @@
-﻿namespace Core.Planning
+﻿namespace GOAP.Planning
 {
     public interface IPlanningAction<T>
     {

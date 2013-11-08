@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core;
+using GOAP;
 using Machine.Specifications;
 using Tests.Examples;
 

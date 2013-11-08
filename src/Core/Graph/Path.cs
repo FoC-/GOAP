@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Core.Graph
+namespace GOAP.Graph
 {
     internal class Path<T> : IEnumerable<T>
     {
