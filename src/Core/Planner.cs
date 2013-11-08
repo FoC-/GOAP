@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Graph;
@@ -7,13 +6,13 @@ using Core.PrioritizedCollections;
 
 namespace Core
 {
-    public class Planner<T> where T : ICloneable
+    public class Planner<T>
     {
         private readonly Method method;
-        private readonly IEnumerable<PlanningAction<T>> planningActions;
+        private readonly IEnumerable<IPlanningAction<T>> planningActions;
         private readonly IStateComparer<T> stateComparer;
 
-        public Planner(Method method, IEnumerable<PlanningAction<T>> planningActions, IStateComparer<T> stateComparer)
+        public Planner(Method method, IEnumerable<IPlanningAction<T>> planningActions, IStateComparer<T> stateComparer)
         {
             this.method = method;
             this.planningActions = planningActions;

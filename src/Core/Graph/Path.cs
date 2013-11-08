@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Graph
 {
-    public class Path<T> : IEnumerable<T>
+    internal class Path<T> : IEnumerable<T>
     {
         public T Node { get; private set; }
         public double Cost { get; private set; }

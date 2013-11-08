@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Core.PrioritizedCollections
 {
-    public class PrioritizedQueue<K, V> : IPrioritized<K, V>
+    internal class PrioritizedQueue<K, V> : IPrioritized<K, V>
     {
         private readonly SortedDictionary<K, Queue<V>> queues = new SortedDictionary<K, Queue<V>>();
 

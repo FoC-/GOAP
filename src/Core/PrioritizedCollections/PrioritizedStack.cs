@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Core.PrioritizedCollections
 {
-    public class PrioritizedStack<K, V> : IPrioritized<K, V>
+    internal class PrioritizedStack<K, V> : IPrioritized<K, V>
     {
         private readonly SortedDictionary<K, Stack<V>> stacks = new SortedDictionary<K, Stack<V>>();
 

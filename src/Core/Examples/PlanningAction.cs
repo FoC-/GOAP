@@ -1,8 +1,9 @@
 ﻿using System;
+using Core.Planning;
 
-namespace Core.Planning
+namespace Core.Examples
 {
-    public class PlanningAction<T> where T : ICloneable
+    public class PlanningAction<T> : IPlanningAction<T> where T : ICloneable
     {
         public string Name { get; private set; }
 
