@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Examples
+namespace Tests.Examples
 {
     public class DictionaryState : Dictionary<string, int>, ICloneable
     {

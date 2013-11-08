@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core;
-using Core.Examples;
 using Machine.Specifications;
+using Tests.Examples;
 
 namespace Tests
 {

@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseContext.cs" />
+    <Compile Include="Examples\DictionaryState.cs" />
+    <Compile Include="Examples\DictionaryPlanningStateComaparer.cs" />
+    <Compile Include="Examples\PlanningAction.cs" />
     <Compile Include="States\when_GetHashCode_called.cs" />
     <Compile Include="when_goal_unreachable.cs" />
     <Compile Include="when_goal_reachable.cs" />

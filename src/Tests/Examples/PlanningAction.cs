@@ -1,7 +1,7 @@
 ﻿using System;
 using Core.Planning;
 
-namespace Core.Examples
+namespace Tests.Examples
 {
     public class PlanningAction<T> : IPlanningAction<T> where T : ICloneable
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core;
-using Core.Examples;
 using Machine.Specifications;
+using Tests.Examples;
 
 namespace Tests
 {

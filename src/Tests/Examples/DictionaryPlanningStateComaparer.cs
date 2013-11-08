@@ -1,9 +1,9 @@
 using System.Linq;
 using Core.Planning;
 
-namespace Core.Examples
+namespace Tests.Examples
 {
-    public class DictionaryStateComaparer : IStateComparer<DictionaryState>
+    public class DictionaryPlanningStateComaparer : IPlanningStateComparer<DictionaryState>
     {
         public bool Equals(DictionaryState x, DictionaryState y)
         {

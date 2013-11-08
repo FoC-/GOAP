@@ -1,9 +1,9 @@
-﻿using Core.Examples;
-using Machine.Specifications;
+﻿using Machine.Specifications;
+using Tests.Examples;
 
 namespace Tests.States
 {
-    [Subject(typeof(DictionaryStateComaparer))]
+    [Subject(typeof(DictionaryPlanningStateComaparer))]
     public class when_Equals_called
     {
         Establish context = () =>
@@ -18,7 +18,7 @@ namespace Tests.States
                 {"param2", 20},
                 {"param1", 10},
             };
-            comparer = new DictionaryStateComaparer();
+            comparer = new DictionaryPlanningStateComaparer();
         };
         Because of = () =>
             result = comparer.Equals(source, destination);
@@ -29,6 +29,6 @@ namespace Tests.States
         private static bool result;
         private static DictionaryState source;
         private static DictionaryState destination;
-        private static DictionaryStateComaparer comparer;
+        private static DictionaryPlanningStateComaparer comparer;
     }
 }

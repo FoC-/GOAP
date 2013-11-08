@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Core.Planning
 {
-    public interface IStateComparer<T> : IEqualityComparer<T>
+    public interface IPlanningStateComparer<in T> : IEqualityComparer<T>
     {
         double Distance(T x, T y);
     }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core;
-using Core.Examples;
 using Core.Planning;
+using Tests.Examples;
 
 namespace Tests
 {
@@ -28,7 +28,7 @@ namespace Tests
                                 x["2"] -= 1;
                             }),
                 };
-            var stateComparer = new DictionaryStateComaparer();
+            var stateComparer = new DictionaryPlanningStateComaparer();
 
             return new Planner<DictionaryState>(Method.DepthFirst, planningActions, stateComparer);
         }
