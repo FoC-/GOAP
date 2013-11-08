@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GOAP", "Core\GOAP.csproj", "{1DDB20D5-939E-46A0-A1A8-FEAD675CDE84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GOAP", "Goap\GOAP.csproj", "{1DDB20D5-939E-46A0-A1A8-FEAD675CDE84}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{5FD66330-05FC-4FE0-8BE1-5A72C3797AAA}"
 EndProject

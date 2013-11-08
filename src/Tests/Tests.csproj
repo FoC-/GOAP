@@ -59,7 +59,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\GOAP.csproj">
+    <ProjectReference Include="..\Goap\GOAP.csproj">
       <Project>{1DDB20D5-939E-46A0-A1A8-FEAD675CDE84}</Project>
       <Name>GOAP</Name>
     </ProjectReference>
