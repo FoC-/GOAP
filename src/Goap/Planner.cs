@@ -43,13 +43,13 @@ namespace GOAP
 
                 visitedStates.Add(reachedByPath);
 
-                var plans = planningActions
-                    .Where(action => action.CanExecute(reachedByPath))
-                    .Select(action => path.AddChild(action, planningStateComparer.Distance(action.Execute(goalState), goalState)));
+                var plans = planningActions.Where(action => action.CanExecute(reachedByPath));
 
-                foreach (var plan in plans)
+                foreach (var action in plans)
                 {
-                    unvisitedPathes.Add(plan.Cost + planningStateComparer.Distance(plan.Node.Execute(reachedByPath), goalState), plan);
+                    var distance = planningStateComparer.Distance(action.Execute(reachedByPath), goalState);
+                    var plan = path.AddChild(action, distance);
+                    unvisitedPathes.Add(plan.Cost + distance, plan);
                 }
             }
             return Enumerable.Empty<IPlanningAction<T>>();

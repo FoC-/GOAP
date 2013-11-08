@@ -4,6 +4,6 @@ namespace GOAP.Planning
 {
     public interface IPlanningStateComparer<in T> : IEqualityComparer<T>
     {
-        double Distance(T x, T y);
+        double Distance(T state1, T state2);
     }
 }

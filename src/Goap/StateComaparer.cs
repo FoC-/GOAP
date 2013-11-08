@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using GOAP.Planning;
 
@@ -21,24 +22,17 @@ namespace GOAP
             return hash;
         }
 
-        public double Distance(State x, State y)
+        public double Distance(State state1, State state2)
         {
             var score = 0.0;
-            foreach (var requiredParameter in y)
+            foreach (var state2param in state2)
             {
-                int existingParameter = 0;
-                x.TryGetValue(requiredParameter.Key, out existingParameter);
-                if (existingParameter == 0) continue;
-                if (existingParameter == requiredParameter.Value)
-                {
-                    score += 1;
-                }
-                else
-                {
-                    score += (double)requiredParameter.Value / existingParameter;
-                }
+                var state1Value = 0;
+                var state2Value = state2param.Value;
+                state1.TryGetValue(state2param.Key, out state1Value);
+                score += Math.Abs(state1Value - state2Value);
             }
-            return score / y.Count;
+            return score / Math.Max(state1.Count, state2.Count);
         }
     }
 }

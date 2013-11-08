@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseContext.cs" />
+    <Compile Include="StateComaparerTests\when_Distance_called.cs" />
+    <Compile Include="StateComaparerTests\when_Distance_called_and_states_are_equal.cs" />
     <Compile Include="StateComaparerTests\when_GetHashCode_called.cs" />
     <Compile Include="PlannerTests\when_goal_unreachable.cs" />
     <Compile Include="PlannerTests\when_goal_reachable.cs" />
