@@ -12,12 +12,12 @@ namespace Tests
         {
             planner = CreatePlanner();
 
-            initialState = new DictionaryState
+            initialState = new State
             {
                 {"1" , 3},
                 {"2" , 6},
             };
-            goalState = new DictionaryState
+            goalState = new State
             {
                 {"1" , 5},
                 {"2" , 4},
@@ -33,9 +33,9 @@ namespace Tests
         It should_contain_3_steps = () =>
             plan.Count().ShouldEqual(3);
 
-        private static Planner<DictionaryState> planner;
-        private static DictionaryState initialState;
-        private static DictionaryState goalState;
-        private static IEnumerable<DictionaryState> plan;
+        private static Planner<State> planner;
+        private static State initialState;
+        private static State goalState;
+        private static IEnumerable<State> plan;
     }
 }

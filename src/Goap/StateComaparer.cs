@@ -3,14 +3,14 @@ using GOAP.Planning;
 
 namespace GOAP
 {
-    public class DictionaryPlanningStateComaparer : IPlanningStateComparer<DictionaryState>
+    public class StateComaparer : IPlanningStateComparer<State>
     {
-        public bool Equals(DictionaryState x, DictionaryState y)
+        public bool Equals(State x, State y)
         {
             return x.Count == y.Count && !x.Except(y).Any();
         }
 
-        public int GetHashCode(DictionaryState state)
+        public int GetHashCode(State state)
         {
             var hash = 127;
             foreach (var parameter in state)
@@ -21,7 +21,7 @@ namespace GOAP
             return hash;
         }
 
-        public double Distance(DictionaryState x, DictionaryState y)
+        public double Distance(State x, State y)
         {
             var score = 0.0;
             foreach (var requiredParameter in y)

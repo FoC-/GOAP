@@ -34,8 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DictionaryPlanningStateComaparer.cs" />
-    <Compile Include="DictionaryState.cs" />
+    <Compile Include="StateComaparer.cs" />
+    <Compile Include="State.cs" />
     <Compile Include="PlanningAction.cs" />
     <Compile Include="Planning\IPlanner.cs" />
     <Compile Include="Planning\IPlanningAction.cs" />

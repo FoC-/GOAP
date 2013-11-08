@@ -3,22 +3,22 @@ using Machine.Specifications;
 
 namespace Tests.States
 {
-    [Subject(typeof(DictionaryPlanningStateComaparer))]
+    [Subject(typeof(StateComaparer))]
     public class when_GetHashCode_called
     {
         Establish context = () =>
         {
-            source = new DictionaryState{
+            source = new State{
                 {"param1", 10},
                 {"param2", 20},
                 {"param3", 30},
             };
-            destination = new DictionaryState{
+            destination = new State{
                 {"param3", 30},
                 {"param2", 20},
                 {"param1", 10},
             };
-            comparer = new DictionaryPlanningStateComaparer();
+            comparer = new StateComaparer();
         };
         Because of = () =>
             result = comparer.GetHashCode(source) == comparer.GetHashCode(destination);
@@ -27,8 +27,8 @@ namespace Tests.States
             result.ShouldBeTrue();
 
         private static bool result;
-        private static DictionaryState source;
-        private static DictionaryState destination;
-        private static DictionaryPlanningStateComaparer comparer;
+        private static State source;
+        private static State destination;
+        private static StateComaparer comparer;
     }
 }

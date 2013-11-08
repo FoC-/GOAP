@@ -11,12 +11,12 @@ namespace Tests
         {
             planner = CreatePlanner();
 
-            initialState = new DictionaryState
+            initialState = new State
             {
                 {"1" , 3},
                 {"2" , 6},
             };
-            goalState = new DictionaryState
+            goalState = new State
             {
                 {"1" , 5},
                 {"2" , 5},
@@ -29,9 +29,9 @@ namespace Tests
         It should_be_empty = () =>
             plan.ShouldBeEmpty();
 
-        private static Planner<DictionaryState> planner;
-        private static DictionaryState initialState;
-        private static DictionaryState goalState;
+        private static Planner<State> planner;
+        private static State initialState;
+        private static State goalState;
         private static IEnumerable<Dictionary<string, int>> plan;
     }
 }
