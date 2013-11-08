@@ -2,7 +2,7 @@
 
 namespace Core.Planning
 {
-    public class PlanningAction<T>
+    public class PlanningAction<T> where T : ICloneable
     {
         public string Name { get; private set; }
 
@@ -23,7 +23,7 @@ namespace Core.Planning
 
         public T Execute(T state)
         {
-            var newState = (T)state;
+            var newState = (T)state.Clone();
             executor(newState);
             return newState;
         }

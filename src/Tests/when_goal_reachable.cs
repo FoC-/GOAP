@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core;
+using Core.Examples;
 using Machine.Specifications;
 
 namespace Tests
@@ -12,12 +13,12 @@ namespace Tests
         {
             planner = CreatePlanner();
 
-            initialState = new Dictionary<string, int>
+            initialState = new DictionaryState
             {
                 {"1" , 3},
                 {"2" , 6},
             };
-            goalState = new Dictionary<string, int>
+            goalState = new DictionaryState
             {
                 {"1" , 5},
                 {"2" , 4},
@@ -33,9 +34,9 @@ namespace Tests
         It should_contain_3_steps = () =>
             plan.Count().ShouldEqual(3);
 
-        private static Planner<Dictionary<string, int>> planner;
-        private static Dictionary<string, int> initialState;
-        private static Dictionary<string, int> goalState;
-        private static IEnumerable<Dictionary<string, int>> plan;
+        private static Planner<DictionaryState> planner;
+        private static DictionaryState initialState;
+        private static DictionaryState goalState;
+        private static IEnumerable<DictionaryState> plan;
     }
 }

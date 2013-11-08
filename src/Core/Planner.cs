@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Graph;
@@ -6,7 +7,7 @@ using Core.PrioritizedCollections;
 
 namespace Core
 {
-    public class Planner<T>
+    public class Planner<T> where T : ICloneable
     {
         private readonly Method method;
         private readonly IEnumerable<PlanningAction<T>> planningActions;

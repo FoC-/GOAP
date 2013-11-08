@@ -1,16 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Planning;
 
-namespace Core.Planning
+namespace Core.Examples
 {
-    public class DictionaryStateComaparer : IStateComparer<Dictionary<string, int>>
+    public class DictionaryStateComaparer : IStateComparer<DictionaryState>
     {
-        public bool Equals(Dictionary<string, int> x, Dictionary<string, int> y)
+        public bool Equals(DictionaryState x, DictionaryState y)
         {
             return x.Count == y.Count && !x.Except(y).Any();
         }
 
-        public int GetHashCode(Dictionary<string, int> state)
+        public int GetHashCode(DictionaryState state)
         {
             var hash = 127;
             foreach (var parameter in state)
@@ -21,7 +22,7 @@ namespace Core.Planning
             return hash;
         }
 
-        public double Distance(Dictionary<string, int> x, Dictionary<string, int> y)
+        public double Distance(DictionaryState x, DictionaryState y)
         {
             var score = 0.0;
             foreach (var requiredParameter in y)

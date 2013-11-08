@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core;
+using Core.Examples;
 using Machine.Specifications;
 
 namespace Tests
@@ -11,12 +12,12 @@ namespace Tests
         {
             planner = CreatePlanner();
 
-            initialState = new Dictionary<string, int>
+            initialState = new DictionaryState
             {
                 {"1" , 3},
                 {"2" , 6},
             };
-            goalState = new Dictionary<string, int>
+            goalState = new DictionaryState
             {
                 {"1" , 5},
                 {"2" , 5},
@@ -29,9 +30,9 @@ namespace Tests
         It should_be_empty = () =>
             plan.ShouldBeEmpty();
 
-        private static Planner<Dictionary<string, int>> planner;
-        private static Dictionary<string, int> initialState;
-        private static Dictionary<string, int> goalState;
+        private static Planner<DictionaryState> planner;
+        private static DictionaryState initialState;
+        private static DictionaryState goalState;
         private static IEnumerable<Dictionary<string, int>> plan;
     }
 }

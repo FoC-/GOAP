@@ -39,8 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Examples\DictionaryState.cs" />
     <Compile Include="Planning\IStateComparer.cs" />
-    <Compile Include="Planning\DictionaryStateComaparer.cs" />
+    <Compile Include="Examples\DictionaryStateComaparer.cs" />
     <Compile Include="Graph\Path.cs" />
     <Compile Include="Planning\PlanningAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

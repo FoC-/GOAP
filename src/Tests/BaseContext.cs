@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using Core;
+using Core.Examples;
 using Core.Planning;
 
 namespace Tests
 {
     internal class BaseContext
     {
-        protected static Planner<Dictionary<string, int>> CreatePlanner()
+        protected static Planner<DictionaryState> CreatePlanner()
         {
-            var planningActions = new List<PlanningAction<Dictionary<string, int>>>
+            var planningActions = new List<PlanningAction<DictionaryState>>
                 {
-                    new PlanningAction<Dictionary<string, int>>(
+                    new PlanningAction<DictionaryState>(
                         name: "swap 1 with 2",
                         validator: x => x["1"] > 1,
                         executor: x =>
@@ -18,7 +19,7 @@ namespace Tests
                                 x["1"] -= 1;
                                 x["2"] += 1;
                             }),
-                    new PlanningAction<Dictionary<string, int>>(
+                    new PlanningAction<DictionaryState>(
                         name:"swap 2 with 1",
                         validator: x => x["2"] > 1,
                         executor: x => 
@@ -29,7 +30,7 @@ namespace Tests
                 };
             var stateComparer = new DictionaryStateComaparer();
 
-            return new Planner<Dictionary<string, int>>(Method.DepthFirst, planningActions, stateComparer);
+            return new Planner<DictionaryState>(Method.DepthFirst, planningActions, stateComparer);
         }
     }
 }

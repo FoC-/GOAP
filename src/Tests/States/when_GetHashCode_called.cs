@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Core.Planning;
+using Core.Examples;
 using Machine.Specifications;
 
 namespace Tests.States
@@ -9,12 +8,12 @@ namespace Tests.States
     {
         Establish context = () =>
         {
-            source = new Dictionary<string, int>{
+            source = new DictionaryState{
                 {"param1", 10},
                 {"param2", 20},
                 {"param3", 30},
             };
-            destination = new Dictionary<string, int>{
+            destination = new DictionaryState{
                 {"param3", 30},
                 {"param2", 20},
                 {"param1", 10},
@@ -28,8 +27,8 @@ namespace Tests.States
             result.ShouldBeTrue();
 
         private static bool result;
-        private static Dictionary<string, int> source;
-        private static Dictionary<string, int> destination;
+        private static DictionaryState source;
+        private static DictionaryState destination;
         private static DictionaryStateComaparer comparer;
     }
 }
