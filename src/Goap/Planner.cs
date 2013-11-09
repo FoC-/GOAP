@@ -49,7 +49,7 @@ namespace GOAP
                 {
                     var distance = planningStateComparer.Distance(action.Execute(reachedByPath), goalState);
                     var plan = path.AddChild(action, distance);
-                    unvisitedPathes.Add(plan.Cost + distance, plan);
+                    unvisitedPathes.Add(plan.Cost, plan);
                 }
             }
             return Enumerable.Empty<IPlanningAction<T>>();
