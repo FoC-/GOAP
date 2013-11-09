@@ -27,28 +27,38 @@ namespace Tests.StateComaparerTests
                     {"param1", 10},
                     {"param2", 20},
                 };
+                state5 = new State{
+                    {"param1", 10},
+                    {"param4", 20},
+                };
             };
 
         Because of = () =>
             {
-                distance1 = new StateComaparer().Distance(state1, state2);
-                distance2 = new StateComaparer().Distance(state1, state3);
-                distance3 = new StateComaparer().Distance(state1, state4);
+                distance12 = new StateComaparer().Distance(state1, state2);
+                distance13 = new StateComaparer().Distance(state1, state3);
+                distance14 = new StateComaparer().Distance(state1, state4);
+                distance15 = new StateComaparer().Distance(state1, state5);
             };
 
         It should_one_distance_be_less_then_another1 = () =>
-            distance2.ShouldBeLessThan(distance1);
+            distance12.ShouldBeLessThan(distance13);
 
         It should_one_distance_be_less_then_another2 = () =>
-            distance3.ShouldBeLessThan(distance1);
+            distance12.ShouldBeLessThan(distance14);  
+
+        It should_one_distance_be_less_then_another3 = () =>
+            distance12.ShouldBeLessThan(distance15);
 
 
-        private static double distance1;
-        private static double distance2;
-        private static double distance3;
+        private static double distance12;
+        private static double distance13;
+        private static double distance14;
+        private static double distance15;
         private static State state1;
         private static State state2;
         private static State state3;
         private static State state4;
+        private static State state5;
     }
 }

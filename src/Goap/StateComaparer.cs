@@ -22,17 +22,12 @@ namespace GOAP
             return hash;
         }
 
-        public double Distance(State state1, State state2)
+        public double Distance(State s1, State s2)
         {
-            var score = 0.0;
-            foreach (var state2param in state2)
-            {
-                var state1Value = 0;
-                var state2Value = state2param.Value;
-                state1.TryGetValue(state2param.Key, out state1Value);
-                score += Math.Abs(state1Value - state2Value);
-            }
-            return score / Math.Max(state1.Count, state2.Count);
+            var same = s1.Keys.Intersect(s2.Keys).ToList();
+            var percent = same.Where(k => s1[k] != s2[k]).Sum(k => (double)Math.Abs(s1[k] - s2[k]) / Math.Max(s1[k], s2[k]));
+            var countDifferent = s1.Keys.Concat(s2.Keys).Except(same).Count();
+            return (percent + countDifferent) / (same.Count() + countDifferent);
         }
     }
 }
