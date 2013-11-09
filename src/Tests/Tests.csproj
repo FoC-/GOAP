@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseContext.cs" />
+    <Compile Include="PlannerTests\hanoi_tower_solver_test.cs" />
     <Compile Include="StateComaparerTests\when_Distance_called.cs" />
     <Compile Include="StateComaparerTests\when_Distance_called_and_states_are_equal.cs" />
     <Compile Include="StateComaparerTests\when_GetHashCode_called.cs" />
