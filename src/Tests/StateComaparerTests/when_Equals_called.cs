@@ -1,4 +1,5 @@
-﻿using GOAP;
+﻿using FluentAssertions;
+using GOAP;
 using Machine.Specifications;
 
 namespace Tests.StateComaparerTests
@@ -23,7 +24,7 @@ namespace Tests.StateComaparerTests
             result = new StateComaparer().Equals(source, destination);
 
         It should_return_true = () =>
-            result.ShouldBeTrue();
+            result.Should().BeTrue();
 
         private static bool result;
         private static State source;

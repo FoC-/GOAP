@@ -5,15 +5,16 @@ namespace GOAP.Graph
 {
     internal class Path<T> : IEnumerable<T>
     {
-        public T Node { get; private set; }
+        private readonly T node;
+        private readonly Path<T> pathToParentNode;
+
         public double Cost { get; private set; }
-        public Path<T> PathToParentNode { get; private set; }
 
         public Path(T rootNode) : this(rootNode, null, 0) { }
         private Path(T node, Path<T> pathToParentNode, double cost)
         {
-            Node = node;
-            PathToParentNode = pathToParentNode;
+            this.node = node;
+            this.pathToParentNode = pathToParentNode;
             Cost = cost;
         }
 
@@ -24,9 +25,9 @@ namespace GOAP.Graph
 
         public IEnumerator<T> GetEnumerator()
         {
-            for (var path = this; path != null; path = path.PathToParentNode)
+            for (var path = this; path != null; path = path.pathToParentNode)
             {
-                yield return path.Node;
+                yield return path.node;
             }
         }
 

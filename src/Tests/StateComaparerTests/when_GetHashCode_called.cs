@@ -1,3 +1,4 @@
+using FluentAssertions;
 using GOAP;
 using Machine.Specifications;
 
@@ -23,7 +24,7 @@ namespace Tests.StateComaparerTests
             result = new StateComaparer().GetHashCode(source) == new StateComaparer().GetHashCode(destination);
 
         It should_return_true = () =>
-            result.ShouldBeTrue();
+            result.Should().BeTrue();
 
         private static bool result;
         private static State source;

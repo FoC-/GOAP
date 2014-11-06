@@ -1,3 +1,4 @@
+using FluentAssertions;
 using GOAP;
 using Machine.Specifications;
 
@@ -23,7 +24,7 @@ namespace Tests.StateComaparerTests
             result = new StateComaparer().Distance(destination, source);
 
         It should_return_true = () =>
-            result.ShouldBeCloseTo(0.0);
+            result.Should().Be(0.0);
 
         private static double result;
         private static State source;

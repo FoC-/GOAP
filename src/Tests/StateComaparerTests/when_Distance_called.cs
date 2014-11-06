@@ -1,3 +1,4 @@
+using FluentAssertions;
 using GOAP;
 using Machine.Specifications;
 
@@ -42,13 +43,13 @@ namespace Tests.StateComaparerTests
             };
 
         It should_one_distance_be_less_then_another1 = () =>
-            distance12.ShouldBeLessThan(distance13);
+            distance12.Should().BeLessThan(distance13);
 
         It should_one_distance_be_less_then_another2 = () =>
-            distance12.ShouldBeLessThan(distance14);  
+            distance12.Should().BeLessThan(distance14);  
 
         It should_one_distance_be_less_then_another3 = () =>
-            distance12.ShouldBeLessThan(distance15);
+            distance12.Should().BeLessThan(distance15);
 
 
         private static double distance12;

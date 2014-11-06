@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FluentAssertions;
 using GOAP;
 using GOAP.Planning;
 using Machine.Specifications;
@@ -28,7 +29,7 @@ namespace Tests.PlannerTests
             plan = planner.MakePlan(initialState, goalState);
 
         It should_be_empty = () =>
-            plan.ShouldBeEmpty();
+            plan.Should().BeEmpty();
 
         private static Planner<State> planner;
         private static State initialState;

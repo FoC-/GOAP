@@ -7,10 +7,10 @@ namespace GOAP
     {
         public string Name { get; private set; }
 
-        private readonly Func<T, bool> validator;
+        private readonly Predicate<T> validator;
         private readonly Action<T> executor;
 
-        public PlanningAction(string name, Func<T, bool> validator, Action<T> executor)
+        public PlanningAction(string name, Predicate<T> validator, Action<T> executor)
         {
             Name = name;
             this.validator = validator;

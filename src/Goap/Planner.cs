@@ -57,17 +57,13 @@ namespace GOAP
 
         private IPrioritized<double, S> UnvisitedPathes<S>()
         {
-            IPrioritized<double, S> prioritized = null;
             switch (planningMethod)
             {
                 case PlanningMethod.BreadthFirst:
-                    prioritized = new PrioritizedQueue<double, S>();
-                    break;
-                case PlanningMethod.DepthFirst:
-                    prioritized = new PrioritizedStack<double, S>();
-                    break;
+                    return new PrioritizedQueue<double, S>();
+                default:
+                    return new PrioritizedStack<double, S>();
             }
-            return prioritized;
         }
     }
 }
